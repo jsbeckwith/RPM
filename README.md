@@ -7,6 +7,7 @@ a dataset, run python main.py. Check the main.py
 file for a full list of arguments you can adjust, e.g.
 num-samples is the number of samples per configuration,
 save-dir is the directory to save the dataset.
+![image](https://github.com/husheng12345/RPM/blob/master/Images/Balanced-RAVEN.png)
 # HriNet
 Code of our model resides in the HriNet folder.
 To train and evaluate our model, run
