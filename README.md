@@ -17,6 +17,7 @@ full list of arguments you can adjust, e.g. dataset is
 the dataset to be trained on (PGM or Balanced-RAVEN),
 PGM_path and Balanced_RAVEN_path are the path
 to the dataset.
+![image](https://github.com/husheng12345/RPM/blob/master/Images/HriNet.png)
 # Pre-trained models
 We provide PyTorch state_dicts (dict of
 weight tensors) of our HriNet trained on PGM-70K
