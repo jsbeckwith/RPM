@@ -65,9 +65,9 @@ class Number(Attribute):
             new_idx(int): a new value_level
         """
         if min_level is None or max_level is None:
-            values = range(self.min_level, self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1)
         else:
-            values = range(min_level, max_level + 1)
+            values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
             available = set(values) - set(self.previous_values) - set([self.value_level])
         else:
@@ -103,9 +103,9 @@ class Type(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(self.min_level, self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1)
         else:
-            values = range(min_level, max_level + 1)
+            values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
             available = set(values) - set(self.previous_values) - set([self.value_level])
         else:
@@ -141,9 +141,9 @@ class Size(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(self.min_level, self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1)
         else:
-            values = range(min_level, max_level + 1)
+            values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
             available = set(values) - set(self.previous_values) - set([self.value_level])
         else:
@@ -179,9 +179,9 @@ class Color(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(self.min_level, self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1)
         else:
-            values = range(min_level, max_level + 1)
+            values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
             available = set(values) - set(self.previous_values) - set([self.value_level])
         else:
@@ -217,9 +217,9 @@ class Angle(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(self.min_level, self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1)
         else:
-            values = range(min_level, max_level + 1)
+            values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
             available = set(values) - set(self.previous_values) - set([self.value_level])
         else:
