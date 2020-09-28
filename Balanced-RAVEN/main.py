@@ -208,13 +208,13 @@ def separate(args, all_configs):
                                                                                       meta_target=meta_target, 
                                                                                       structure=structure,
                                                                                       meta_structure=meta_structure)
-            with open("{}/{}/RAVEN_{}_{}.xml".format(args.save_dir, key, k, set_name), "w") as f:
+            with open("{}/{}/RAVEN_{}_{}.xml".format(args.save_dir, key, k, set_name), "wb") as f:
                 dom = dom_problem(context + candidates, rule_groups)
                 f.write(dom)
             
             if target == predicted:
                 acc += 1
-        print "Accuracy of {}: {}".format(key, float(acc) / args.num_samples)
+        print("Accuracy of {}: {}".format(key, float(acc) / args.num_samples))
     
 
 def main():
