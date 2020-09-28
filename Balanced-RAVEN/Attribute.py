@@ -103,7 +103,7 @@ class Type(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(int(self.min_level), int(self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1))
         else:
             values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
@@ -141,7 +141,7 @@ class Size(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(int(self.min_level), int(self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1))
         else:
             values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
@@ -179,7 +179,7 @@ class Color(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(int(self.min_level), int(self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1))
         else:
             values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
@@ -217,7 +217,7 @@ class Angle(Attribute):
 
     def sample_new(self, min_level=None, max_level=None, previous_values=None):
         if min_level is None or max_level is None:
-            values = range(int(self.min_level), int(self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level + 1))
         else:
             values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
