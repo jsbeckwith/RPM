@@ -136,12 +136,12 @@ def separate(args, all_configs):
 
             mode = None
             #switch attribute 'Number' for convenience
-            pos = [i for i in xrange(len(selected_attr)) if selected_attr[i][1]=='Number']
+            pos = [i for i in range(len(selected_attr)) if selected_attr[i][1]=='Number']
             if pos:
                 pos = pos[0]
                 selected_attr[pos], selected_attr[-1] = selected_attr[-1], selected_attr[pos] 
 
-                pos = [i for i in xrange(len(selected_attr)) if selected_attr[i][1]=='Position']
+                pos = [i for i in range(len(selected_attr)) if selected_attr[i][1]=='Position']
                 if pos:
                     mode = 'Position-Number'
             values = [] 
@@ -149,7 +149,7 @@ def separate(args, all_configs):
                 mode_3 = None
                 if mode == 'Position-Number':
                     mode_3 = '3-Position-Number'  
-                for i in xrange(attr_num):    
+                for i in range(attr_num):    
                     component_idx, attr_name, min_level, max_level, attr_uni = selected_attr[i][0], selected_attr[i][1], selected_attr[i][3], selected_attr[i][4], selected_attr[i][5]                
                     value = answer_AoT.sample_new_value(component_idx, attr_name, min_level, max_level, attr_uni, mode_3)
                     values.append(value)
@@ -172,17 +172,17 @@ def separate(args, all_configs):
                     ran,qu = 6, 1 
                 else:
                     ran,qu = 3, 2   
-                for i in xrange(ran):
+                for i in range(ran):
                     value = answer_AoT.sample_new_value(component_idx, attr_name, min_level, max_level, attr_uni, None)
                     values.append(value)
-                    for j in xrange(qu):
+                    for j in range(qu):
                         new_AoT = copy.deepcopy(candidates[j])
                         new_AoT.apply_new_value(component_idx, attr_name, value)
                         candidates.append(new_AoT)
 
             elif len(selected_attr) == 1:
                 component_idx, attr_name, min_level, max_level, attr_uni = selected_attr[0][0], selected_attr[0][1], selected_attr[0][3], selected_attr[0][4], selected_attr[0][5]             
-                for i in xrange(7):
+                for i in range(7):
                     value = answer_AoT.sample_new_value(component_idx, attr_name, min_level, max_level, attr_uni, None)
                     values.append(value)
                     new_AoT = copy.deepcopy(answer_AoT)

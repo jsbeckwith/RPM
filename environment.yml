@@ -1,0 +1,11 @@
+name: rpm
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - tqdm
+  - scipy
+  - opencv
+  - pillow
+  - matplotlib
+prefix: /opt/miniconda3/envs/rpm
