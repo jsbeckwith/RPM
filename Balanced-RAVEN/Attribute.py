@@ -65,7 +65,7 @@ class Number(Attribute):
             new_idx(int): a new value_level
         """
         if min_level is None or max_level is None:
-            values = range(int(self.min_level), int(self.max_level + 1)
+            values = range(int(self.min_level), int(self.max_level) + 1)
         else:
             values = range(int(min_level), int(max_level) + 1)
         if not previous_values:
