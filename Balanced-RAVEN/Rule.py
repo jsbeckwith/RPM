@@ -343,7 +343,7 @@ class Distribute_Three(Rule):
                 all_value_levels = range(current_layout.layout_constraint["Number"][0], 
                                          current_layout.layout_constraint["Number"][1] + 1)
                 current_value_level = current_layout.number.get_value_level()
-                idx = all_value_levels.index(current_value_level)
+                idx = list(all_value_levels.index(current_value_level))
                 all_value_levels.pop(idx)
                 three_value_levels = np.random.choice(all_value_levels, 2, False)
                 three_value_levels = np.insert(three_value_levels, 0, current_value_level)
