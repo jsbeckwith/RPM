@@ -14,8 +14,8 @@ from utility import PGMdataset, RAVENdataset, ToTensor
 from hrinet import HriNet
 # from resnet import ResNet, ResidualBlock
 
-GPUID = '2,5,6'
-os.environ["CUDA_VISIBLE_DEVICES"] = GPUID
+# GPUID = '2,5,6'
+# os.environ["CUDA_VISIBLE_DEVICES"] = GPUID
 
 parser = argparse.ArgumentParser(description='our_model')
 parser.add_argument('--model', type=str, default='HriNet')
