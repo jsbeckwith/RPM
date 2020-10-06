@@ -35,7 +35,7 @@ parser.add_argument('--beta2', type=float, default=0.999)
 parser.add_argument('--epsilon', type=float, default=1e-8)
 parser.add_argument('--meta_beta', type=float, default=0.0)
 parser.add_argument('--visdom', default=False, help='Use visdom for visualization')
-parser.add_argument('--cuda', default=False )
+parser.add_argument('--cuda', default=True )
 parser.add_argument('--debug', default=False)
 
 args = parser.parse_args()
