@@ -72,9 +72,6 @@ print ('Image size:', args.img_size)
 
 if args.model == 'HriNet':
     model = HriNet(args).to('cuda')
-""" elif args.model == 'resnet':
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    ResNet(ResidualBlock, [2, 2, 2]).to(device) """
 
 start_epoch = 0
 if args.resume:
@@ -99,7 +96,7 @@ def train(epoch):
     for batch_idx, (image, target, meta_target) in enumerate(trainloader):
         counter += 1
         if args.cuda:
-            image = image.to('cuda')
+            image = image.to('cuda', dtype=torch.float32)
             target = target.to('cuda')
             meta_target = meta_target.to('cuda')
         model.optimizer.zero_grad()
@@ -127,7 +124,7 @@ def validate(epoch):
         for batch_idx, (image, target, meta_target) in enumerate(validloader):
             counter += 1
             if args.cuda:
-                image = image.to('cuda')
+                image = image.to('cuda', dtype=torch.float32)
                 target = target.to('cuda')
                 meta_target = meta_target.to('cuda')
             output = pmodel(image)           
@@ -149,7 +146,7 @@ def test(epoch):
         for batch_idx, (image, target, meta_target) in enumerate(testloader):
             counter += 1
             if args.cuda:
-                image = image.to('cuda')
+                image = image.to('cuda', dtype=torch.float32)
                 target = target.to('cuda')
                 meta_target = meta_target.to('cuda')
             output = pmodel(image)
@@ -163,33 +160,14 @@ def test(epoch):
     return acc_all/float(counter)
 
 def main():
-
-    if args.visdom:        
-        vis_title =  args.dataset + ' ' + start_time
-        vis_legend = ['Train Acc', 'Val Acc', 'Test Acc']
-        epoch_plot = create_vis_plot('Epoch', 'Acc', vis_title, vis_legend)
     for epoch in range(start_epoch, args.epochs):
         avg_train_loss, avg_train_acc = train(epoch)
+        print(avg_train_loss, avg_train_acc)
         avg_acc = validate(epoch)
+        print(avg_acc)
         avg_test_acc = test(epoch)
+        print(avg_test_acc)
         model.save_model(args.save, epoch)
-        if args.visdom:
-            viz.line(
-                X=torch.ones((1, 3)) * epoch,
-                Y=torch.Tensor([avg_train_acc, avg_acc, avg_test_acc]).unsqueeze(0),
-                win=epoch_plot,
-                update='append'
-            )
-def create_vis_plot(_xlabel, _ylabel, _title, _legend):
-    return viz.line(
-        X=torch.zeros((1,)),
-        Y=torch.zeros((1, 3)),
-        opts=dict(
-            xlabel=_xlabel,
-            ylabel=_ylabel,
-            title=_title,
-            legend=_legend
-        )
-    )
+
 if __name__ == '__main__':
     main()
