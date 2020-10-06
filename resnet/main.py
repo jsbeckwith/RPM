@@ -80,9 +80,9 @@ if args.resume:
     print('Loaded model')
     start_epoch = args.resume_epoch+1
 
-pmodel = torch.nn.DataParallel(model)
-torch.backends.cudnn.benchmark = True
-pmodel = pmodel.cuda()
+#pmodel = torch.nn.DataParallel(model)
+#torch.backends.cudnn.benchmark = True
+#pmodel = pmodel.cuda()
 
 # viz = visdom.Visdom(port = 9527, env = args.dataset)
 
@@ -100,7 +100,7 @@ def train(epoch):
             target = target.to('cuda')
             meta_target = meta_target.to('cuda')
         model.optimizer.zero_grad()
-        output = pmodel(image)
+        output = model(image)
         loss = model.compute_loss(output, target, meta_target)
         loss.backward()
         model.optimizer.step()
@@ -127,7 +127,7 @@ def validate(epoch):
                 image = image.to('cuda', dtype=torch.float32)
                 target = target.to('cuda')
                 meta_target = meta_target.to('cuda')
-            output = pmodel(image)           
+            output = model(image)           
             pred = output[0].data.max(1)[1]
             correct = pred.eq(target.data).cpu().sum().numpy()
             accuracy = correct * 100. / target.size()[0]          
@@ -149,7 +149,7 @@ def test(epoch):
                 image = image.to('cuda', dtype=torch.float32)
                 target = target.to('cuda')
                 meta_target = meta_target.to('cuda')
-            output = pmodel(image)
+            output = model(image)
             pred = output[0].data.max(1)[1]
             correct = pred.eq(target.data).cpu().sum().numpy()
             accuracy = correct * 100. / target.size()[0]   
