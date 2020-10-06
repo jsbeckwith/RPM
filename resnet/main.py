@@ -99,9 +99,9 @@ def train(epoch):
     for batch_idx, (image, target, meta_target) in enumerate(trainloader):
         counter += 1
         if args.cuda:
-            image = image.cuda()
-            target = target.cuda()
-            meta_target = meta_target.cuda()  
+            image = image.to('cuda')
+            target = target.to('cuda')
+            meta_target = meta_target.to('cuda')
         model.optimizer.zero_grad()
         output = pmodel(image)
         loss = model.compute_loss(output, target, meta_target)
@@ -127,9 +127,9 @@ def validate(epoch):
         for batch_idx, (image, target, meta_target) in enumerate(validloader):
             counter += 1
             if args.cuda:
-                image = image.cuda()
-                target = target.cuda()
-                meta_target = meta_target.cuda()    
+                image = image.to('cuda')
+                target = target.to('cuda')
+                meta_target = meta_target.to('cuda')
             output = pmodel(image)           
             pred = output[0].data.max(1)[1]
             correct = pred.eq(target.data).cpu().sum().numpy()
@@ -149,9 +149,9 @@ def test(epoch):
         for batch_idx, (image, target, meta_target) in enumerate(testloader):
             counter += 1
             if args.cuda:
-                image = image.cuda()
-                target = target.cuda()
-                meta_target = meta_target.cuda()   
+                image = image.to('cuda')
+                target = target.to('cuda')
+                meta_target = meta_target.to('cuda')
             output = pmodel(image)
             pred = output[0].data.max(1)[1]
             correct = pred.eq(target.data).cpu().sum().numpy()
