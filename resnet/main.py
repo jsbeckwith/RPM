@@ -71,7 +71,7 @@ print ('Train/Validation/Test:{0}/{1}/{2}'.format(len(train), len(valid), len(te
 print ('Image size:', args.img_size)
 
 if args.model == 'HriNet':
-    model = HriNet(args)
+    model = HriNet(args).to('cuda')
 """ elif args.model == 'resnet':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     ResNet(ResidualBlock, [2, 2, 2]).to(device) """
