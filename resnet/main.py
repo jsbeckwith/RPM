@@ -8,7 +8,7 @@ import torch.optim as optim
 import torchvision.models as models
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
-import visdom
+# import visdom
 
 from utility import PGMdataset, RAVENdataset, ToTensor
 from hrinet import HriNet
