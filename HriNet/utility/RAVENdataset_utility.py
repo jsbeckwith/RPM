@@ -12,8 +12,7 @@ figure_configuration_names = ['center_single', 'distribute_four', 'distribute_ni
 class ToTensor(object):
     def __call__(self, sample):
         #return torch.tensor(sample, dtype=torch.float32)
-        print("tensor type", type(torch.from_numpy(sample)))
-        return torch.from_numpy(sample)
+        return torch.from_numpy(sample).float()
 
 class RAVENdataset(Dataset):
     def __init__(self, root_dir, dataset_type, figure_configurations, img_size, transform=None, shuffle=False):
