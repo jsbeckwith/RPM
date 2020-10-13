@@ -12,7 +12,6 @@ figure_configuration_names = ['center_single', 'distribute_four', 'distribute_ni
 class ToTensor(object):
     def __call__(self, sample):
         #return torch.tensor(sample, dtype=torch.float32)
-        print("sample type", type(sample))
         return torch.from_numpy(sample)
 
 class RAVENdataset(Dataset):
@@ -54,8 +53,6 @@ class RAVENdataset(Dataset):
 
         resize_image_arr = []
         for idx in range(0, 16):
-            # resize_image.append(misc.imresize(image[idx,:,:], (self.img_size, self.img_size)))
-            # resize_image.append(np.array(Image.fromarray(image[idx,:,:])).resize((self.img_size, self.img_size)))
             img_to_resize = Image.fromarray(image[idx,:,:])
             resized_image = img_to_resize.resize((self.img_size, self.img_size))
             resized_arr = np.array(resized_image)
@@ -66,9 +63,9 @@ class RAVENdataset(Dataset):
         del data
         if self.transform:
             resize_image_arr = self.transform(resize_image_arr)
-            target = torch.tensor(target, dtype=torch.long)
+            target = torch.tensor(target, dtype=torch.float32)
             print("target", type(target))
             #target = self.transform(target)
-            meta_target = self.transform(meta_target) 
+            meta_target = self.transform(meta_target)
 
         return resize_image_arr, target, meta_target
