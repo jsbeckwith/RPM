@@ -133,7 +133,6 @@ def update_lr(optimizer, lr):
         param_group['lr'] = lr
 
 # Train the model
-total_step = len(train_loader)
 curr_lr = learning_rate
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):

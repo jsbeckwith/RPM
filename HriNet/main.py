@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
-import visdom
+# import visdom
 
 from utility import PGMdataset, RAVENdataset, ToTensor
 from hrinet import HriNet
@@ -25,14 +25,14 @@ parser.add_argument('--seed', type=int, default=12345)
 parser.add_argument('--load_workers', type=int, default=16)
 parser.add_argument('--resume', type=str, default='')
 parser.add_argument('--PGM_path', type=str, default='/media/dsg3/datasets/PGM')
-parser.add_argument('--Balanced_RAVEN_path', type=str, default='/media/dsg3/datasets/Balanced-RAVEN')
+parser.add_argument('--Balanced_RAVEN_path', type=str, default='../Balanced-RAVEN/test')
 parser.add_argument('--save', type=str, default='/media/dsg3/hs/')
 parser.add_argument('--lr', type=float, default=1e-4)
 parser.add_argument('--beta1', type=float, default=0.9)
 parser.add_argument('--beta2', type=float, default=0.999)
 parser.add_argument('--epsilon', type=float, default=1e-8)
 parser.add_argument('--meta_beta', type=float, default=0.0)
-parser.add_argument('--visdom', default=True, help='Use visdom for visualization')
+parser.add_argument('--visdom', default=False, help='Use visdom for visualization')
 parser.add_argument('--cuda', default=True )
 parser.add_argument('--debug', default=False)
 
@@ -80,7 +80,7 @@ pmodel = torch.nn.DataParallel(model)
 torch.backends.cudnn.benchmark = True
 pmodel = pmodel.cuda()
 
-viz = visdom.Visdom(port = 9527, env = args.dataset)
+# viz = visdom.Visdom(port = 9527, env = args.dataset)
 
 def train(epoch):
     model.train()
@@ -157,23 +157,23 @@ def test(epoch):
 
 def main():
 
-    if args.visdom:        
+    """ if args.visdom:        
         vis_title =  args.dataset + ' ' + start_time
         vis_legend = ['Train Acc', 'Val Acc', 'Test Acc']
-        epoch_plot = create_vis_plot('Epoch', 'Acc', vis_title, vis_legend)
+        epoch_plot = create_vis_plot('Epoch', 'Acc', vis_title, vis_legend) """
     for epoch in range(start_epoch, args.epochs):
         avg_train_loss, avg_train_acc = train(epoch)
         avg_acc = validate(epoch)
         avg_test_acc = test(epoch)
         model.save_model(args.save, epoch)
-        if args.visdom:
+        """ if args.visdom:
             viz.line(
                 X=torch.ones((1, 3)) * epoch,
                 Y=torch.Tensor([avg_train_acc, avg_acc, avg_test_acc]).unsqueeze(0),
                 win=epoch_plot,
                 update='append'
-            )
-def create_vis_plot(_xlabel, _ylabel, _title, _legend):
+            ) """
+""" def create_vis_plot(_xlabel, _ylabel, _title, _legend):
     return viz.line(
         X=torch.zeros((1,)),
         Y=torch.zeros((1, 3)),
@@ -183,6 +183,6 @@ def create_vis_plot(_xlabel, _ylabel, _title, _legend):
             title=_title,
             legend=_legend
         )
-    )
+    ) """
 if __name__ == '__main__':
     main()

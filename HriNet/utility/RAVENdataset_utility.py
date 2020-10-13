@@ -2,7 +2,7 @@ import os
 import glob
 import numpy as np
 from scipy import misc
-
+from PIL import Image
 import torch
 from torch.utils.data import Dataset
 from torchvision import transforms, utils
@@ -11,7 +11,9 @@ figure_configuration_names = ['center_single', 'distribute_four', 'distribute_ni
 
 class ToTensor(object):
     def __call__(self, sample):
-        return torch.tensor(sample, dtype=torch.float32)
+        #return torch.tensor(sample, dtype=torch.float32)
+        print("sample type", type(sample))
+        return torch.from_numpy(sample)
 
 class RAVENdataset(Dataset):
     def __init__(self, root_dir, dataset_type, figure_configurations, img_size, transform=None, shuffle=False):
@@ -20,7 +22,6 @@ class RAVENdataset(Dataset):
         self.file_names = []
         for idx in figure_configurations:
             tmp = [f for f in glob.glob(os.path.join(root_dir, figure_configuration_names[idx], "*.npz")) if dataset_type in os.path.basename(f)]
-
             self.file_names += tmp
         self.img_size = img_size   
         self.shuffle = shuffle
@@ -49,16 +50,25 @@ class RAVENdataset(Dataset):
             image = np.concatenate((context, new_choices))
             target = new_target
 
-        resize_image = []
+        print("target", target)
+
+        resize_image_arr = []
         for idx in range(0, 16):
-            resize_image.append(misc.imresize(image[idx,:,:], (self.img_size, self.img_size)))
-        resize_image = np.stack(resize_image) 
+            # resize_image.append(misc.imresize(image[idx,:,:], (self.img_size, self.img_size)))
+            # resize_image.append(np.array(Image.fromarray(image[idx,:,:])).resize((self.img_size, self.img_size)))
+            img_to_resize = Image.fromarray(image[idx,:,:])
+            resized_image = img_to_resize.resize((self.img_size, self.img_size))
+            resized_arr = np.array(resized_image)
+            resize_image_arr.append(resized_arr)
+        
+        resize_image_arr = np.stack(resize_image_arr)
     
         del data
         if self.transform:
-            resize_image = self.transform(resize_image)           
+            resize_image_arr = self.transform(resize_image_arr)
             target = torch.tensor(target, dtype=torch.long)
+            print("target", type(target))
+            #target = self.transform(target)
             meta_target = self.transform(meta_target) 
 
-        return resize_image, target, meta_target
-        
+        return resize_image_arr, target, meta_target
