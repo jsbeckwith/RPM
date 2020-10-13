@@ -61,7 +61,7 @@ class RAVENdataset(Dataset):
         del data
         if self.transform:
             resize_image_arr = self.transform(resize_image_arr)
-            target = torch.tensor(target, dtype=torch.float32)
+            target = torch.tensor(target, dtype=torch.long)
             meta_target = self.transform(meta_target)
 
         return resize_image_arr, target, meta_target
