@@ -12,6 +12,7 @@ class BasicModel(nn.Module):
         self.load_state_dict(state_dict)
 
     def save_model(self, path, epoch):
+        print("saving model", path)
         torch.save(self.state_dict(), path+'{}_epoch_{}.pth'.format(self.name, epoch))       
 
     def compute_loss(self, output, target, meta_target):
