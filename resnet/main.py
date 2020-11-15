@@ -18,7 +18,7 @@ from hrinet import HriNet
 # os.environ["CUDA_VISIBLE_DEVICES"] = GPUID
 
 parser = argparse.ArgumentParser(description='our_model')
-parser.add_argument('--model', type=str, default='HriNet')
+parser.add_argument('--model', type=str, default='ResNet')
 parser.add_argument('--dataset', type=str, default='Balanced-RAVEN', choices=['PGM', 'Balanced-RAVEN'])
 parser.add_argument('--img_size', type=int, default=224)
 parser.add_argument('--epochs', type=int, default=201)
@@ -72,6 +72,8 @@ print ('Image size:', args.img_size)
 
 if args.model == 'HriNet':
     model = HriNet(args).to('cuda')
+elif args.model == 'ResNet':
+    model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=False)
 
 start_epoch = 0
 if args.resume:
