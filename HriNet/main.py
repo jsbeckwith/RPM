@@ -20,10 +20,10 @@ parser.add_argument('--model', type=str, default='HriNet')
 parser.add_argument('--dataset', type=str, default='Balanced-RAVEN', choices=['PGM', 'Balanced-RAVEN'])
 parser.add_argument('--img_size', type=int, default=224)
 parser.add_argument('--epochs', type=int, default=201)
-parser.add_argument('--batch_size', type=int, default=5)
+parser.add_argument('--batch_size', type=int, default=8)
 parser.add_argument('--seed', type=int, default=12345)
 parser.add_argument('--load_workers', type=int, default=16)
-parser.add_argument('--resume', type=str, default='')
+parser.add_argument('--resume', type=str, default='save/Balanced-RAVEN/Balanced-RAVEN_2020-10-23_14-38-35/')
 parser.add_argument('--PGM_path', type=str, default='/media/dsg3/datasets/PGM')
 parser.add_argument('--Balanced_RAVEN_path', type=str, default='../Balanced-RAVEN/70k_dataset')
 parser.add_argument('--save', type=str, default='save/')
@@ -72,7 +72,7 @@ if args.model == 'HriNet':
     model = HriNet(args)
 start_epoch = 0
 if args.resume:
-    args.resume_epoch = 78
+    args.resume_epoch = 84
     model.load_model(args.resume, args.resume_epoch)
     print('Loaded model')
     start_epoch = args.resume_epoch+1

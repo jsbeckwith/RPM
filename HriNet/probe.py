@@ -22,7 +22,7 @@ parser.add_argument('--epochs', type=int, default=201)
 parser.add_argument('--batch_size', type=int, default=5)
 parser.add_argument('--seed', type=int, default=12345)
 parser.add_argument('--load_workers', type=int, default=16)
-parser.add_argument('--resume', type=str, default='')
+parser.add_argument('--resume', type=str, default='save/')
 parser.add_argument('--Balanced_RAVEN_path', type=str, default='../Balanced-RAVEN/70k_dataset')
 parser.add_argument('--save', type=str, default='save/')
 parser.add_argument('--lr', type=float, default=1e-4)
@@ -38,9 +38,8 @@ args.test_figure_configurations = [0,1,2,3,4,5,6]
 test = RAVENdataset(args.Balanced_RAVEN_path, "test", args.test_figure_configurations, args.img_size, transform=transforms.Compose([ToTensor()]))
 testloader = DataLoader(test, batch_size=args.batch_size, shuffle=False, num_workers=args.load_workers)
 model = HriNet(args)
-model.load_model(args.resume, args.resume_epoch)
+model.load_model(args.resume, 179)
 print('Loaded model')
-start_epoch = args.resume_epoch+1
 pmodel = torch.nn.DataParallel(model)
 torch.backends.cudnn.benchmark = True
 pmodel = pmodel.cuda()
@@ -63,6 +62,9 @@ def test():
             accuracy = correct * 100. / target.size()[0]   
             acc = accuracy
             acc_all += acc
+            if batch_idx % 100 == 0:
+                print("interim accuracy, batch", batch_idx, ":")
+                print((acc_all / float(counter)))
     if counter > 0:
         print("Total Testing Acc: {:.4f}".format(acc_all / float(counter)))
     return acc_all/float(counter)

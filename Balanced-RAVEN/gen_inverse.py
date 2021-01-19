@@ -216,11 +216,11 @@ def separate(args, all_configs):
 
 def main():
     main_arg_parser = argparse.ArgumentParser(description="parser for Balanced-RAVEN")
-    main_arg_parser.add_argument("--num-samples", type=int, default=10,
+    main_arg_parser.add_argument("--num-samples", type=int, default=10000,
                                  help="number of samples for each component configuration")
     main_arg_parser.add_argument("--save-dir", type=str, default="inverse_test",
                                  help="path to folder where the generated dataset will be saved.")
-    main_arg_parser.add_argument("--seed", type=int, default=1234,
+    main_arg_parser.add_argument("--seed", type=int, default=4949,
                                  help="random seed for dataset generation")
     main_arg_parser.add_argument("--fuse", type=int, default=0,
                                  help="whether to fuse different configurations")
