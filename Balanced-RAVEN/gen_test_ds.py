@@ -37,13 +37,7 @@ def separate(args, all_configs):
     for key in all_configs.keys():
         acc = 0
         for k in trange(args.num_samples):
-            count_num = k % 10
-            if count_num < (10 - args.val - args.test):
-                set_name = "train"
-            elif count_num < (10 - args.test):
-                set_name = "val"
-            else:
-                set_name = "test"
+            set_name = "test"
 
             root = all_configs[key]
             while True:
@@ -219,11 +213,11 @@ def separate(args, all_configs):
 
 def main():
     main_arg_parser = argparse.ArgumentParser(description="parser for Balanced-RAVEN")
-    main_arg_parser.add_argument("--num-samples", type=int, default=10,
+    main_arg_parser.add_argument("--num-samples", type=int, default=10000,
                                  help="number of samples for each component configuration")
-    main_arg_parser.add_argument("--save-dir", type=str, default="thick",
+    main_arg_parser.add_argument("--save-dir", type=str, default="thin",
                                  help="path to folder where the generated dataset will be saved.")
-    main_arg_parser.add_argument("--seed", type=int, default=1234,
+    main_arg_parser.add_argument("--seed", type=int, default=4949,
                                  help="random seed for dataset generation")
     main_arg_parser.add_argument("--fuse", type=int, default=0,
                                  help="whether to fuse different configurations")

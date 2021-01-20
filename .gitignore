@@ -1,4 +1,6 @@
 .DS_Store
 Balanced-RAVEN/test
 Balanced-RAVEN/inverse_test
+Balanced-RAVEN/thin
+Balanced-RAVEN/thick
 *.pyc
